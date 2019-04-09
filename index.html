@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+        #printer, #users, #posts {
+            padding: 20px;
+            margin: auto;
+        }
+    
+    </style>
+</head>
+<body>
+
+<div id="printer">
+   <h1>The XMLHttpRequest Object</h1>
+   <button id="btn1">Get Users</button>
+   <button id="btn2">Get Posts</button>
+</div>
+
+  <div id="users"></div>
+  <div id="posts"></div>
+
+  
+<script>
+   
+    document.getElementById('btn1').addEventListener("click", getUsers);
+    
+    document.getElementById('btn2').addEventListener("click", getPosts);
+   
+    
+    function getData(url, functionName) {
+         var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) { 
+                printData(JSON.parse(this.responseText), functionName);
+            }
+    }
+            
+        xhttp.open("GET", url);
+        xhttp.send();
+    }
+    
+    
+    function printData(data, functionName) {
+        functionName('callback', data);
+    }
+    
+    function getUsers(state, data) {
+        if(state != 'callback')
+            getData("users.txt", getUsers);
+        if(state == 'callback') 
+            
+            var text = "";
+            for(var property in data) {
+            text += "<div>" + data[property].name + ", " + data[property].username + ", " + data[property].email + "</div>";
+            document.getElementById("users").innerHTML = text;
+            }
+    }
+    
+    function getPosts(state, data) {
+        if(state != 'callback')
+            getData("posts.txt", getPosts);
+        if(state == 'callback') 
+            
+            var text = "";
+            for(var property in data) {
+            text += "<div>" + data[property].id + ". " + data[property].title + ": " + "<p>" + data[property].body + "</p>" + "</div>";
+            document.getElementById("posts").innerHTML = text;
+            }
+    }
+   
+</script>
+    
+</body>
+</html>

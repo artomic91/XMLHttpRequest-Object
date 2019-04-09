@@ -1,0 +1,4 @@
+Napraviti dva fajla users.txt i posts.txt, unutar njih uneti proizvoljni sadrzaj u JSON formatu.
+Kreirati index.html stranicu i uz pomoć AJAX-a pozvati eksterni sadrzaj unutar glavne stranice
+Event za pozivanje ajax-a jeste click na odgovarajući button, za evente koristiti:
+addEventListener, za eksterne fajlove koristiti XMLHttpRequest  
